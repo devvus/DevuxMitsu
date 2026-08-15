@@ -80,10 +80,16 @@ async def settings_back_markup(client, CallbackQuery: CallbackQuery, _):
         OWNER = OWNER_ID
         buttons = private_panel(_)
         UP, CPU, RAM, DISK = await bot_sys_stats()
-        return await CallbackQuery.edit_message_text(
-            _["start_2"].format(CallbackQuery.from_user.mention, app.mention, UP, DISK, CPU, RAM),
-            reply_markup=InlineKeyboardMarkup(buttons),
-        )
+        try:
+            return await CallbackQuery.edit_message_text(
+                _["start_2"].format(CallbackQuery.from_user.mention),
+                reply_markup=InlineKeyboardMarkup(buttons),
+            )
+        except:
+            return await CallbackQuery.edit_message_caption(
+                caption=_["start_2"].format(CallbackQuery.from_user.mention),
+                reply_markup=InlineKeyboardMarkup(buttons),
+            )
     else:
         buttons = setting_markup(_)
         return await CallbackQuery.edit_message_reply_markup(
