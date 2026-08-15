@@ -8,12 +8,12 @@ dnspython
 ffmpeg-python
 hachoir
 opencv-python
-pillow==9.5.0
+pillow
 numpy
 
 # --- System & performance ---
 psutil
-uvloop==0.17.0; sys_platform != "win32"  # Compatible with Python 3.10+
+  # Compatible with Python 3.10+
 
 # --- Database & API ---
 motor
@@ -23,8 +23,8 @@ requests
 heroku3
 
 # --- Telegram / Music bot libs ---
-kurigram>=2.2.17
-py-tgcalls==0.9.7
+pyrogram
+py-tgcalls
 pytgcrypto
 spotipy
 unidecode

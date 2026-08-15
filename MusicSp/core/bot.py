@@ -1,7 +1,4 @@
-import sys
-if sys.platform != "win32":
-    import uvloop
-    uvloop.install()
+
 
 from pyrogram import Client, errors
 from pyrogram.enums import ChatMemberStatus, ParseMode

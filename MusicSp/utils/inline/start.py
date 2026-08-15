@@ -1,7 +1,7 @@
 
 import config
 from MusicSp import app
-from pyrogram.enums import ButtonStyle
+
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
@@ -32,8 +32,7 @@ def private_panel(_):
         ],
         [
             InlineKeyboardButton(
-                text=_["S_B_4"], callback_data="settings_back_helper",
-
+                text=_["S_B_4"], callback_data="settingsback_helper",
             )
         ],
         [
