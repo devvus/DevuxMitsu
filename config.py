@@ -84,7 +84,7 @@ confirmer = {}
 
 
 START_IMG_URL = getenv(
-    "START_IMG_URL", "https://images6.alphacoders.com/132/1321458.png"
+    "START_IMG_URL", "https://files.manuscdn.com/user_upload_by_module/session_file/310519663866540879/bFTuSNuHJGOfGEAM.jpg"
 )
 PING_IMG_URL = getenv(
     "PING_IMG_URL", "https://raw.githubusercontent.com/DevloperSP/MusicSp/main/.assets/starry_night.jpg"
