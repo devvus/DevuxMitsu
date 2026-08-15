@@ -27,9 +27,14 @@ async def helper_private(
         language = await get_lang(chat_id)
         _ = get_string(language)
         keyboard = help_pannel(_, True)
-        await update.edit_message_text(
-            _["help_1"].format(SUPPORT_GROUP), reply_markup=keyboard
-        )
+        try:
+            await update.edit_message_text(
+                _["help_1"].format(SUPPORT_GROUP), reply_markup=keyboard
+            )
+        except:
+            await update.edit_message_caption(
+                caption=_["help_1"].format(SUPPORT_GROUP), reply_markup=keyboard
+            )
     else:
         try:
             await update.delete()

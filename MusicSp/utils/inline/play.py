@@ -59,7 +59,7 @@ def stream_markup_timer(_, chat_id, played, dur):
         [
             InlineKeyboardButton(text="▷", callback_data=f"ADMIN Resume|{chat_id}", style=ButtonStyle.PRIMARY),
             InlineKeyboardButton(text="II", callback_data=f"ADMIN Pause|{chat_id}", style=ButtonStyle.PRIMARY),
-            InlineKeyboardButton(text="↻", callback_data=f"ADMIN Replay|{chat_id}", style=ButtonStyle.PRIMARY),
+            InlineKeyboardButton(text="[ Claim ]", url=f"https://t.me/{app.username}?start=reward"),
             InlineKeyboardButton(text="‣‣I", callback_data=f"ADMIN Skip|{chat_id}", style=ButtonStyle.SUCCESS),
             InlineKeyboardButton(text="▢", callback_data=f"ADMIN Stop|{chat_id}", style=ButtonStyle.DANGER),
         ],
@@ -83,7 +83,7 @@ def stream_markup(_, chat_id):
         [
             InlineKeyboardButton(text="▷", callback_data=f"ADMIN Resume|{chat_id}", style=ButtonStyle.PRIMARY),
             InlineKeyboardButton(text="II", callback_data=f"ADMIN Pause|{chat_id}", style=ButtonStyle.PRIMARY),
-            InlineKeyboardButton(text="↻", callback_data=f"ADMIN Replay|{chat_id}", style=ButtonStyle.PRIMARY),
+            InlineKeyboardButton(text="[ Claim ]", url=f"https://t.me/{app.username}?start=reward"),
             InlineKeyboardButton(text="‣‣I", callback_data=f"ADMIN Skip|{chat_id}", style=ButtonStyle.SUCCESS),
             InlineKeyboardButton(text="▢", callback_data=f"ADMIN Stop|{chat_id}", style=ButtonStyle.DANGER),
         ],
