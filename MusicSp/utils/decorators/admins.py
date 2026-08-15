@@ -21,17 +21,12 @@ from ..formatters import int_to_alpha
 
 def AdminRightsCheck(mystic):
     async def wrapper(client, message):
-        if await is_maintenance() is False:
-            if message.from_user.id not in SUDOERS:
+        if await is_maintenance() is True:
+            if message.from_user.id not in SUDOERS.user_ids:
                 return await message.reply_text(
                     text=f"{app.mention} ɪs ᴜɴᴅᴇʀ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ, ᴠɪsɪᴛ <a href={SUPPORT_GROUP}>sᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ</a> ғᴏʀ ᴋɴᴏᴡɪɴɢ ᴛʜᴇ ʀᴇᴀsᴏɴ.",
                     disable_web_page_preview=True,
                 )
-
-        try:
-            await message.delete()
-        except:
-            pass
 
         try:
             language = await get_lang(message.chat.id)
@@ -64,7 +59,7 @@ def AdminRightsCheck(mystic):
             return await message.reply_text(_["general_5"])
         is_non_admin = await is_nonadmin_chat(message.chat.id)
         if not is_non_admin:
-            if message.from_user.id not in SUDOERS:
+            if message.from_user.id not in SUDOERS.user_ids:
                 admins = adminlist.get(message.chat.id)
                 if not admins:
                     return await message.reply_text(_["admin_13"])
@@ -117,17 +112,12 @@ def AdminRightsCheck(mystic):
 
 def AdminActual(mystic):
     async def wrapper(client, message):
-        if await is_maintenance() is False:
-            if message.from_user.id not in SUDOERS:
+        if await is_maintenance() is True:
+            if message.from_user.id not in SUDOERS.user_ids:
                 return await message.reply_text(
                     text=f"{app.mention} ɪs ᴜɴᴅᴇʀ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ, ᴠɪsɪᴛ <a href={SUPPORT_GROUP}>sᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ</a> ғᴏʀ ᴋɴᴏᴡɪɴɢ ᴛʜᴇ ʀᴇᴀsᴏɴ.",
                     disable_web_page_preview=True,
                 )
-
-        try:
-            await message.delete()
-        except:
-            pass
 
         try:
             language = await get_lang(message.chat.id)
@@ -146,7 +136,7 @@ def AdminActual(mystic):
                 ]
             )
             return await message.reply_text(_["general_3"], reply_markup=upl)
-        if message.from_user.id not in SUDOERS:
+        if message.from_user.id not in SUDOERS.user_ids:
             try:
                 member = (
                     await app.get_chat_member(message.chat.id, message.from_user.id)
@@ -162,8 +152,8 @@ def AdminActual(mystic):
 
 def ActualAdminCB(mystic):
     async def wrapper(client, CallbackQuery):
-        if await is_maintenance() is False:
-            if CallbackQuery.from_user.id not in SUDOERS:
+        if await is_maintenance() is True:
+            if CallbackQuery.from_user.id not in SUDOERS.user_ids:
                 return await CallbackQuery.answer(
                     f"{app.mention} ɪs ᴜɴᴅᴇʀ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ, ᴠɪsɪᴛ sᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ ғᴏʀ ᴋɴᴏᴡɪɴɢ ᴛʜᴇ ʀᴇᴀsᴏɴ.",
                     show_alert=True,
@@ -187,7 +177,7 @@ def ActualAdminCB(mystic):
             except:
                 return await CallbackQuery.answer(_["general_4"], show_alert=True)
             if not a.can_manage_video_chats:
-                if CallbackQuery.from_user.id not in SUDOERS:
+                if CallbackQuery.from_user.id not in SUDOERS.user_ids:
                     token = await int_to_alpha(CallbackQuery.from_user.id)
                     _check = await get_authuser_names(CallbackQuery.from_user.id)
                     if token not in _check:

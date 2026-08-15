@@ -44,18 +44,12 @@ def PlayWrapper(command):
             )
             return await message.reply_text(_["general_3"], reply_markup=upl)
 
-        if await is_maintenance() is False:
-            if message.from_user.id not in SUDOERS:
+        if await is_maintenance() is True:
+            if message.from_user.id not in SUDOERS.user_ids:
                 return await message.reply_text(
                     text=f"{app.mention} ɪs ᴜɴᴅᴇʀ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ, ᴠɪsɪᴛ <a href={SUPPORT_GROUP}>sᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ</a> ғᴏʀ ᴋɴᴏᴡɪɴɢ ᴛʜᴇ ʀᴇᴀsᴏɴ.",
                     disable_web_page_preview=True,
                 )
-                
-
-        try:
-            await message.delete()
-        except:
-            pass
 
         audio_telegram = (
             (message.reply_to_message.audio or message.reply_to_message.voice)

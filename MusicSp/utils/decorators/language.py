@@ -7,22 +7,19 @@ from strings import get_string
 
 def language(mystic):
     async def wrapper(_, message, **kwargs):
-        if await is_maintenance() is False:
-            if message.from_user.id not in SUDOERS:
+        if await is_maintenance() is True:
+            if message.from_user.id not in SUDOERS.user_ids:
                 return await message.reply_text(
                     text=f"{app.mention} ɪs ᴜɴᴅᴇʀ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ, ᴠɪsɪᴛ <a href={SUPPORT_GROUP}>sᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ</a> ғᴏʀ ᴋɴᴏᴡɪɴɢ ᴛʜᴇ ʀᴇᴀsᴏɴ.",
                     disable_web_page_preview=True,
                 )
-        try:
-            await message.delete()
-        except:
-            pass
 
         try:
-            language = await get_lang(message.chat.id)
-            language = get_string(language)
+            lang = await get_lang(message.chat.id)
+            language = get_string(lang)
         except:
             language = get_string("en")
+        
         return await mystic(_, message, language)
 
     return wrapper
@@ -30,8 +27,8 @@ def language(mystic):
 
 def languageCB(mystic):
     async def wrapper(_, CallbackQuery, **kwargs):
-        if await is_maintenance() is False:
-            if CallbackQuery.from_user.id not in SUDOERS:
+        if await is_maintenance() is True:
+            if CallbackQuery.from_user.id not in SUDOERS.user_ids:
                 return await CallbackQuery.answer(
                     f"{app.mention} ɪs ᴜɴᴅᴇʀ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ, ᴠɪsɪᴛ sᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ ғᴏʀ ᴋɴᴏᴡɪɴɢ ᴛʜᴇ ʀᴇᴀsᴏɴ.",
                     show_alert=True,
