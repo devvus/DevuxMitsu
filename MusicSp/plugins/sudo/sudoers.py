@@ -22,11 +22,11 @@ async def useradd(client, message: Message, _):
         if len(message.command) != 2:
             return await message.reply_text(_["general_1"])
     user = await extract_user(message)
-    if user.id in SUDOERS.user_ids:
+    if user.id in SUDOERS:
         return await message.reply_text(_["sudo_1"].format(user.mention))
     added = await add_sudo(user.id)
     if added:
-        SUDOERS.user_ids.add(user.id)
+        SUDOERS.add(user.id)
         await message.reply_text(_["sudo_2"].format(user.mention))
     else:
         await message.reply_text(_["sudo_8"])
@@ -39,11 +39,11 @@ async def userdel(client, message: Message, _):
         if len(message.command) != 2:
             return await message.reply_text(_["general_1"])
     user = await extract_user(message)
-    if user.id not in SUDOERS.user_ids:
+    if user.id not in SUDOERS:
         return await message.reply_text(_["sudo_3"].format(user.mention))
     removed = await remove_sudo(user.id)
     if removed:
-        SUDOERS.user_ids.remove(user.id)
+        SUDOERS.remove(user.id)
         await message.reply_text(_["sudo_4"].format(user.mention))
     else:
         await message.reply_text(_["sudo_8"])
@@ -62,7 +62,7 @@ async def sudoers_list(client, message: Message):
 @app.on_callback_query(filters.regex("^check_sudo_list$"))
 async def check_sudo_list(client, callback_query: CallbackQuery):
     keyboard = []
-    if callback_query.from_user.id not in SUDOERS.user_ids:
+    if callback_query.from_user.id not in SUDOERS:
         return await callback_query.answer("Only powerful users can see this list! 🌸", show_alert=True)
     else:
         user = await app.get_users(OWNER_ID)
@@ -73,7 +73,7 @@ async def check_sudo_list(client, callback_query: CallbackQuery):
         keyboard.append([InlineKeyboardButton("๏ ᴠɪᴇᴡ ᴏᴡɴᴇʀ ๏", url=f"tg://openmessage?user_id={OWNER_ID}")])
         
         count = 1
-        for user_id in SUDOERS.user_ids:
+        for user_id in SUDOERS:
             if user_id != OWNER_ID:
                 try:
                     user = await app.get_users(user_id)
@@ -105,8 +105,8 @@ async def back_to_main_menu(client, callback_query: CallbackQuery):
 @app.on_message(filters.command(["delallsudo"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & filters.user(OWNER_ID))
 @language
 async def del_all_sudo(client, message: Message, _):
-    count = len(SUDOERS.user_ids) - 1  # Exclude the admin from the count
-    for user_id in SUDOERS.user_ids.copy():
+    count = len(SUDOERS) - 1  # Exclude the admin from the count
+    for user_id in SUDOERS.copy():
         if user_id != OWNER_ID:
             removed = await remove_sudo(user_id)
             if removed:

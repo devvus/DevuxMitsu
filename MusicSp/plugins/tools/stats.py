@@ -22,7 +22,7 @@ from config import BANNED_USERS
 @app.on_message(filters.command(["stats", "gstats"]) & filters.group & ~BANNED_USERS)
 @language
 async def stats_global(client, message: Message, _):
-    upl = stats_buttons(_, True if message.from_user.id in SUDOERS.user_ids else False)
+    upl = stats_buttons(_, True if message.from_user.id in SUDOERS else False)
     await message.reply_photo(
         photo=config.STATS_IMG_URL,
         caption=_["gstats_2"].format(app.mention),
@@ -33,7 +33,7 @@ async def stats_global(client, message: Message, _):
 @app.on_callback_query(filters.regex("stats_back") & ~BANNED_USERS)
 @languageCB
 async def home_stats(client, CallbackQuery, _):
-    upl = stats_buttons(_, True if CallbackQuery.from_user.id in SUDOERS.user_ids else False)
+    upl = stats_buttons(_, True if CallbackQuery.from_user.id in SUDOERS else False)
     await CallbackQuery.edit_message_text(
         text=_["gstats_2"].format(app.mention),
         reply_markup=upl,
@@ -59,7 +59,7 @@ async def overall_stats(client, CallbackQuery, _):
         served_chats,
         served_users,
         len(ALL_MODULES),
-        len(SUDOERS.user_ids),
+        len(SUDOERS),
         await is_autoend(),
         config.DURATION_LIMIT_MIN,
         await is_autoleave()  
@@ -76,7 +76,7 @@ async def overall_stats(client, CallbackQuery, _):
 @app.on_callback_query(filters.regex("bot_stats_sudo"))
 @languageCB
 async def bot_stats(client, CallbackQuery, _):
-    if CallbackQuery.from_user.id not in SUDOERS.user_ids:
+    if CallbackQuery.from_user.id not in SUDOERS:
         return await CallbackQuery.answer(_["gstats_4"], show_alert=True)
     upl = back_stats_buttons(_)
     try:
