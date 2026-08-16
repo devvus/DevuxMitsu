@@ -23,7 +23,7 @@ requests
 heroku3
 
 # --- Telegram / Music bot libs ---
-pyrogram
+kurigram
 py-tgcalls
 pytgcrypto
 spotipy
