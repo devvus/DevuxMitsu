@@ -10,3 +10,9 @@
 [15-Aug-26 23:39:50 - INFO] - MusicSp.core.git - Git Client Found [VPS DEPLOYER]
 [15-Aug-26 23:39:50 - INFO] - MusicSp.misc - Local Database Initialized.
 [15-Aug-26 23:39:50 - INFO] - MusicSp.core.bot - Starting Bot...
+[16-Aug-26 00:36:22 - INFO] - MusicSp.core.mongo - Connecting to your Mongo Database...
+[16-Aug-26 00:36:22 - INFO] - MusicSp.core.mongo - Connected to your Mongo Database.
+[16-Aug-26 00:36:22 - INFO] - MusicSp.core.dir - Directories Updated.
+[16-Aug-26 00:36:22 - INFO] - MusicSp.core.git - Git Client Found [VPS DEPLOYER]
+[16-Aug-26 00:36:22 - INFO] - MusicSp.misc - Local Database Initialized.
+[16-Aug-26 00:36:22 - INFO] - MusicSp.core.bot - Starting Bot...

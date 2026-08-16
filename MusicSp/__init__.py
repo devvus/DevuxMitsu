@@ -1,8 +1,17 @@
 import asyncio
 
-# ✅ Fix for event loop issue
-loop = asyncio.new_event_loop()
-asyncio.set_event_loop(loop)
+# ✅ Fix for uvloop / event loop issue on Heroku (Python 3.10+)
+try:
+    asyncio.get_running_loop()
+except RuntimeError:
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
+try:
+    import uvloop
+    uvloop.install()
+except ImportError:
+    pass
 
 
 # --- Original bot imports ---
