@@ -1,12 +1,12 @@
 from MusicSp.misc import SUDOERS
 from MusicSp.utils.database import get_lang, is_maintenance
 from config import SUPPORT_GROUP
-from MusicSp import app
 from strings import get_string
 
 
 def language(mystic):
     async def wrapper(_, message, **kwargs):
+        from MusicSp import app
         if await is_maintenance() is True:
             if message.from_user.id not in SUDOERS.user_ids:
                 return await message.reply_text(
@@ -27,6 +27,7 @@ def language(mystic):
 
 def languageCB(mystic):
     async def wrapper(_, CallbackQuery, **kwargs):
+        from MusicSp import app
         if await is_maintenance() is True:
             if CallbackQuery.from_user.id not in SUDOERS.user_ids:
                 return await CallbackQuery.answer(

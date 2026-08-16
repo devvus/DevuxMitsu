@@ -1,7 +1,6 @@
 from pyrogram.enums import ChatType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from MusicSp import app
 from MusicSp.misc import SUDOERS, db
 from MusicSp.utils.database import (
     get_authuser_names,
@@ -21,6 +20,7 @@ from ..formatters import int_to_alpha
 
 def AdminRightsCheck(mystic):
     async def wrapper(client, message):
+        from MusicSp import app
         if await is_maintenance() is True:
             if message.from_user.id not in SUDOERS.user_ids:
                 return await message.reply_text(
@@ -112,6 +112,7 @@ def AdminRightsCheck(mystic):
 
 def AdminActual(mystic):
     async def wrapper(client, message):
+        from MusicSp import app
         if await is_maintenance() is True:
             if message.from_user.id not in SUDOERS.user_ids:
                 return await message.reply_text(
@@ -152,6 +153,7 @@ def AdminActual(mystic):
 
 def ActualAdminCB(mystic):
     async def wrapper(client, CallbackQuery):
+        from MusicSp import app
         if await is_maintenance() is True:
             if CallbackQuery.from_user.id not in SUDOERS.user_ids:
                 return await CallbackQuery.answer(
