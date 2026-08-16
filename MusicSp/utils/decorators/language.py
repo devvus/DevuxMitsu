@@ -28,6 +28,11 @@ def language(mystic):
 def languageCB(mystic):
     async def wrapper(_, CallbackQuery, **kwargs):
         from MusicSp import app
+        try:
+            await CallbackQuery.answer()
+        except:
+            pass
+            
         if await is_maintenance() is True:
             if CallbackQuery.from_user.id not in SUDOERS:
                 return await CallbackQuery.answer(

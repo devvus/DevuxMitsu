@@ -27,14 +27,21 @@ async def helper_private_cb(
         language = await get_lang(chat_id)
         _ = get_string(language)
         keyboard = help_pannel(_, True)
+        from pyrogram.errors import MessageNotModified
         try:
-            await update.edit_message_text(
-                _["help_1"].format(SUPPORT_GROUP), reply_markup=keyboard
-            )
+            try:
+                await update.edit_message_text(
+                    _["help_1"].format(SUPPORT_GROUP), reply_markup=keyboard
+                )
+            except MessageNotModified:
+                pass
         except:
-            await update.edit_message_caption(
-                caption=_["help_1"].format(SUPPORT_GROUP), reply_markup=keyboard
-            )
+            try:
+                await update.edit_message_caption(
+                    caption=_["help_1"].format(SUPPORT_GROUP), reply_markup=keyboard
+                )
+            except MessageNotModified:
+                pass
     else:
         try:
             await update.delete()
@@ -60,7 +67,15 @@ async def help_com_group(client, message: Message, _):
 @app.on_callback_query(filters.regex("help_callback") & ~BANNED_USERS)
 @languageCB
 async def helper_cb(client, CallbackQuery, _):
+    try:
+        await CallbackQuery.answer()
+    except:
+        pass
     cb = CallbackQuery.data.strip().split(None, 1)[1]
     keyboard = help_back_markup(_)
     text = helpers.HELP_16.format(app.name) if cb == "hb16" else getattr(helpers, f"HELP_{cb[2:]}")
-    await CallbackQuery.edit_message_text(text, reply_markup=keyboard)
+    from pyrogram.errors import MessageNotModified
+    try:
+        await CallbackQuery.edit_message_text(text, reply_markup=keyboard)
+    except MessageNotModified:
+        pass
